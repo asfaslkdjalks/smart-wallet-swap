@@ -1,5 +1,5 @@
 import { Abi, Address, type Chain } from 'viem';
-import { baseSepolia } from 'viem/chains';
+import { base } from 'viem/chains';
 import { useAccount } from 'wagmi';
 import SWAdopterABI from '../contract/SWAdopter';
 import UniversalRouterABI from '../contract/UniversalRouterABI'
@@ -57,18 +57,10 @@ export function generateContractHook<T extends Abi>({ abi, ...spec }: Spec<T>) {
   return useContract;
 }
 
-export const useSWAdopterContract = generateContractHook({
-  abi: SWAdopterABI,
-  [baseSepolia.id]: {
-    chain: baseSepolia,
-    address: '0x119Ea671030FBf79AB93b436D2E20af6ea469a19',
-  },
-});
-
 export const useUniversalRouterContract = generateContractHook({
   abi: UniversalRouterABI,
-  [baseSepolia.id]: {
-    chain: baseSepolia,
-    address: '0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008',
+  [base.id]: {
+    chain: base,
+    address: '0x198EF79F1F515F02dFE9e3115eD9fC07183f02fC',
   },
 });

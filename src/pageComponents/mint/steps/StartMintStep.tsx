@@ -11,7 +11,7 @@ import {
 } from 'wagmi';
 import Button from '../../../components/Button/Button';
 import { EXPECTED_CHAIN } from '../../../constants';
-import { useSWAdopterContract, useUniversalRouterContract } from '../../../hooks/contracts';
+import { useUniversalRouterContract } from '../../../hooks/contracts';
 import { MintSteps } from '../ContractDemo';
 import MintCompleteStep from './MintCompleteStep';
 import MintProcessingStep from './MintProcessingStep';
@@ -53,7 +53,7 @@ export default function StartMintStep({ setMintStep, mintStep, collectionName }:
   let provider: ethers.providers.Web3Provider | undefined;
 
   const TOKEN_B_ADDRESS = '0x4200000000000000000000000000000000000006';
-  const tokenB = new Token(84532, TOKEN_B_ADDRESS, 18, 'WETH', 'Wrapped Ethereum');
+  const tokenB = new Token(8453, TOKEN_B_ADDRESS, 18, 'WETH', 'Wrapped Ethereum');
 
   const [quote, setQuote] = useState<SwapRoute | null>(null);
 
@@ -64,13 +64,13 @@ export default function StartMintStep({ setMintStep, mintStep, collectionName }:
           provider = new ethers.providers.Web3Provider(window.ethereum as ethers.providers.ExternalProvider);
           const router = new AlphaRouter({ chainId: 8453 as ChainId, provider }); // Use the correct ChainId here
           const amountInWei = ethers.utils.parseUnits('.00001', 'ether');
-          const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(84532), amountInWei.toString()); // Use the correct ChainId
+          const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(8453), amountInWei.toString()); // Use the correct ChainId
           const swapOptions = {
               type: SwapType.UNIVERSAL_ROUTER,
               recipient: address, // Assuming 'address' is the user's address
               slippageTolerance: new Percent(50, 10000),
               deadlineOrPreviousBlockhash: Math.floor(Date.now() / 1000) + 60 * 20,
-              chainId: 84532 as ChainId, // Use the correct ChainId
+              chainId: 8453 as ChainId, // Use the correct ChainId
           };
           const fetchedQuote = await router.route(amountIn, tokenB, TradeType.EXACT_INPUT, swapOptions as SwapOptions);
           setQuote(fetchedQuote); // Save the fetched quote to state
