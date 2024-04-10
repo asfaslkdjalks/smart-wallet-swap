@@ -1,7 +1,6 @@
 import { Abi, Address, type Chain } from 'viem';
 import { base } from 'viem/chains';
 import { useAccount } from 'wagmi';
-import SWAdopterABI from '../contract/SWAdopter';
 import UniversalRouterABI from '../contract/UniversalRouterABI'
 
 type ContractInstance = {
@@ -29,6 +28,8 @@ export function generateContractHook<T extends Abi>({ abi, ...spec }: Spec<T>) {
   function useContract(): UseContractReturn<typeof abi> {
     const { chain, isConnected } = useAccount();
     const supportedChains = Object.values(spec).map((s) => s.chain);
+    console.log('Current chain:', chain);
+    console.log('Supported chains in spec:', Object.keys(spec));
 
     if (!isConnected) {
       return { abi, status: 'notConnected', supportedChains };
