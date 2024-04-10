@@ -68,11 +68,11 @@ export default function StartMintStep({ setMintStep, mintStep, collectionName }:
           const swapOptions = {
               type: SwapType.UNIVERSAL_ROUTER,
               recipient: address, // Assuming 'address' is the user's address
-              slippageTolerance: new Percent(50, 10000),
-              deadlineOrPreviousBlockhash: Math.floor(Date.now() / 1000) + 60 * 20,
-              chainId: 1 as ChainId, // Use the correct ChainId
+              slippageTolerance: new Percent(50, 10000), // 0.5% slippage tolerance
+              deadlineOrPreviousBlockhash: Math.floor(Date.now() / 1000) + 60 * 20, // 20 minutes from now
           };
           const fetchedQuote = await router.route(amountIn, tokenB, TradeType.EXACT_INPUT, swapOptions as SwapOptions);
+          console.log(fetchedQuote)
           setQuote(fetchedQuote); // Save the fetched quote to state
         }
       } catch (error) {
@@ -86,7 +86,7 @@ export default function StartMintStep({ setMintStep, mintStep, collectionName }:
   }, [address, provider]); // Re-fetch quote if address or provider changes
   
   if (quote?.methodParameters){
-    const commands = "0x00";
+    const commands = "0x08";
     const inputs = [
       // Convert quote details to contract function input format
       quote.methodParameters.to as `0x${string}`,
