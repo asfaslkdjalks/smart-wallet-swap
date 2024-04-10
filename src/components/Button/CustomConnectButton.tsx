@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useAccount, useChainId, useConnect, useSwitchChain } from 'wagmi';
-import { baseSepolia } from 'viem/chains';
+import { base } from 'viem/chains';
 import Button from './Button';
 import { reloadIfNeeded } from '../../utils/reloadIfNeeded';
 
@@ -18,10 +18,10 @@ export function CustomConnectButton({
   const { address, chain } = useAccount();
 
   useEffect(() => {
-    console.log('>> switching chain', chain?.id !== baseSepolia.id);
+    console.log('>> switching chain', chain?.id !== base.id);
     console.log('>> address', address);
-    if (address && chain?.id !== baseSepolia.id) {
-      switchChain({ chainId: baseSepolia.id });
+    if (address && chain?.id !== base.id) {
+      switchChain({ chainId: base.id });
     }
   }, [address]);
 
