@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { TransactionExecutionError } from 'viem';
-import { Config, useConnect, useConnectors, useSwitchChain, use } from 'wagmi';
+import { Config, useConnect, useConnectors, useSwitchChain } from 'wagmi';
 import {
   useAccount,
   useSimulateContract,
