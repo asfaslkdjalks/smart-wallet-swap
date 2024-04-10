@@ -50,7 +50,7 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
   console.log({ mintLifecycle, accountReady, chain });
 
   const TOKEN_B_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
-  const tokenB = new Token(ChainId.MAINNET, TOKEN_B_ADDRESS, 6, 'WETH', 'USDC');
+  const tokenB = new Token(1, TOKEN_B_ADDRESS, 6, 'WETH', 'USDC');
 
   const [quote, setQuote] = useState<SwapRoute | null>(null);
 
@@ -58,9 +58,9 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
     const fetchAndSetQuote = async () => {
       try {
           const provider = new ethers.providers.JsonRpcProvider('https://ethereum-rpc.publicnode.com');
-          const router = new AlphaRouter({ chainId: ChainId.MAINNET, provider }); // Use the correct ChainId here
+          const router = new AlphaRouter({ chainId: 1, provider }); // Use the correct ChainId here
           const amountInWei = ethers.utils.parseUnits('.00001', 'ether');
-          const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(ChainId.MAINNET), amountInWei.toString()); // Use the correct ChainId
+          const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(1), amountInWei.toString()); // Use the correct ChainId
           const swapOptions = {
               type: SwapType.UNIVERSAL_ROUTER,
               recipient: address, // Assuming 'address' is the user's address
