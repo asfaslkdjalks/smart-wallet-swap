@@ -114,20 +114,23 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
     },
   });
 
-  useEffect(
-    function simulationIsReadyToMint() {
-      if (!accountReady) return;
-      console.log('mintLifecycle', mintLifecycle, simulation?.isFetched, simulation?.data?.request);
-      if (mintLifecycle === 'simulate') {
-        if (simulation?.isFetched && simulation?.data?.request) {
-          setMintLifecycle('readyToMint');
-        } else {
-          console.log('simulation not completed');
-        }
+  useEffect(() => {
+    if (!accountReady) return;
+  
+    console.log('Mint Lifecycle:', mintLifecycle);
+    console.log('Simulation fetched:', simulation?.isFetched);
+    console.log('Simulation request:', simulation?.data?.request);
+  
+    if (mintLifecycle === 'simulate' && simulation?.isFetched) {
+      if (simulation?.data?.request) {
+        console.log('Simulation completed, ready to mint.');
+        setMintLifecycle('readyToMint');
+      } else {
+        console.warn('Simulation completed but request is not ready.');
       }
-    },
-    [mintLifecycle, simulation?.isFetched, simulation?.data],
-  );
+    }
+  }, [mintLifecycle, simulation?.isFetched, simulation?.data]);
+  
 
   useEffect(() => {
     if (!accountReady) return;
