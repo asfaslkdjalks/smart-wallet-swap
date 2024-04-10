@@ -20,7 +20,7 @@ import { CustomConnectButton } from '../../../components/Button/CustomConnectBut
 import { WriteContractMutate } from 'wagmi/query';
 import { reloadIfNeeded } from '../../../utils/reloadIfNeeded';
 import { ethers } from 'ethers'
-import { AlphaRouter, SwapType, SwapOptions, SwapRoute, RouteWithValidQuote } from '@uniswap/smart-order-router'
+import { AlphaRouter, SwapType, SwapOptions, SwapRoute } from '@uniswap/smart-order-router'
 import { ChainId, Percent, CurrencyAmount, Ether, TradeType, Token } from '@uniswap/sdk-core'
 
 if (typeof window !== "undefined") {
@@ -53,27 +53,8 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
   const tokenB = new Token(1, TOKEN_B_ADDRESS, 6, 'WETH', 'USDC');
 
   const [quote, setQuote] = useState<SwapRoute | null>(null);
-  const [inputs, setInputs] = useState<`0x${string}`[]>(['0x0']);
-  const [command, setCommand] = useState<`0x${string}`>('0x00')
-
-  function encodePath(path: RouteWithValidQuote[], fees: string) {
-    if (path.length != fees.length + 1) {
-      throw new Error('path/fee lengths do not match')
-    }
-    
-  
-    let encoded = '0x'
-    for (let i = 0; i < fees.length; i++) {
-      // 20 byte encoding of the address
-      encoded += String(path[i]).slice(2)
-      // 3 byte encoding of the fee
-      encoded += fees[i]
-    }
-    // encode the final token
-    encoded += String(path[path.length - 1]).slice(2)
-  
-    return encoded.toLowerCase()
-  }
+  const [inputs, setInputs] = useState<`0x${string}`[]>([]);
+  const [command, setCommand] = useState<`0x${string}`>('0x0b00')
 
   useEffect(() => {
     const fetchAndSetQuote = async () => {
@@ -91,19 +72,17 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
           const fetchedQuote = await router.route(amountIn, tokenB, TradeType.EXACT_INPUT, swapOptions as SwapOptions);
           console.log(fetchedQuote)
           setQuote(fetchedQuote); // Save the fetched quote to state
-          const commands = "0x00";
+          const commands = "0x0b00";
           if(quote?.methodParameters){
-          const inputData = ethers.utils.defaultAbiCoder.encode(
-            ['address', 'uint256', 'uint256', 'bytes', 'bool'],
-           [
-            quote.methodParameters.to,
-            quote.methodParameters.value.toString(),
-            "0",
-            encodePath(quote.route, quote.quoteGasAdjusted.toString()),
-            false]);
+          const calldata = quote.methodParameters.calldata
+          const iface = new ethers.utils.Interface(contract.abi);
+          const decodedArgs = iface.parseTransaction({ data: calldata });
 
-          setInputs([inputData as `0x${string}`])
+          // Assuming the first argument is commands and the second is inputs
+          const commands = decodedArgs.args[0];
+          const inputs = decodedArgs.args[1];
           setCommand(commands)
+          setInputs(inputs)
         }
       } catch (error) {
           console.error('Failed to fetch quote:', error);
