@@ -20,6 +20,7 @@ export function CustomConnectButton({
   useEffect(() => {
     console.log('>> switching chain', chain?.id !== base.id);
     console.log('>> address', address);
+    console.log(chain)
     if (address && chain?.id !== base.id) {
       switchChain({ chainId: base.id });
     }
