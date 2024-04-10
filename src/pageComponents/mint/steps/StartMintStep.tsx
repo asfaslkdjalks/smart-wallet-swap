@@ -120,17 +120,17 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
   
     console.log('Mint Lifecycle:', mintLifecycle);
     console.log('Simulation fetched:', simulation?.isFetched);
-    console.log('Simulation request:', simulation?.data);
+    console.log('Simulation request:', simulation);
   
     if (mintLifecycle === 'simulate' && simulation?.isFetched) {
-      if (simulation?.data) {
+      if (simulation) {
         console.log('Simulation completed, ready to mint.');
         setMintLifecycle('readyToMint');
       } else {
         console.warn('Simulation completed but request is not ready.');
       }
     }
-  }, [mintLifecycle, simulation?.isFetched, simulation?.data]);
+  }, [mintLifecycle, simulation?.isFetched]);
   
 
   useEffect(() => {
