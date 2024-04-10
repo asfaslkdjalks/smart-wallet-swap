@@ -62,7 +62,7 @@ export default function StartMintStep({ setMintStep, mintStep, collectionName }:
       try {
         if (window.ethereum !== undefined) {
           provider = new ethers.providers.Web3Provider(window.ethereum as ethers.providers.ExternalProvider);
-          const router = new AlphaRouter({ chainId: 84532 as ChainId, provider }); // Use the correct ChainId here
+          const router = new AlphaRouter({ chainId: 8453 as ChainId, provider }); // Use the correct ChainId here
           const amountInWei = ethers.utils.parseUnits('.00001', 'ether');
           const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(84532), amountInWei.toString()); // Use the correct ChainId
           const swapOptions = {
