@@ -72,17 +72,17 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
           const fetchedQuote = await router.route(amountIn, tokenB, TradeType.EXACT_INPUT, swapOptions as SwapOptions);
           console.log(fetchedQuote)
           setQuote(fetchedQuote); // Save the fetched quote to state
-          const commands = "0x0b00";
           if(quote?.methodParameters){
-          const calldata = quote.methodParameters.calldata
-          const iface = new ethers.utils.Interface(contract.abi);
-          const decodedArgs = iface.parseTransaction({ data: calldata });
+            const calldata = quote.methodParameters.calldata
+            const iface = new ethers.utils.Interface(contract.abi);
+            const decodedArgs = iface.parseTransaction({ data: calldata });
 
-          // Assuming the first argument is commands and the second is inputs
-          const commands = decodedArgs.args[0];
-          const inputs = decodedArgs.args[1];
-          setCommand(commands)
-          setInputs(inputs)
+            // Assuming the first argument is commands and the second is inputs
+            const commands = decodedArgs.args[0];
+            const inputs = decodedArgs.args[1];
+            setCommand(commands)
+            setInputs(inputs)
+            console.log('>>inputs', inputs, commands)
         }
       } catch (error) {
           console.error('Failed to fetch quote:', error);
