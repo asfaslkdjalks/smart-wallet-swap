@@ -49,10 +49,8 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
   const accountReady = onCorrectNetwork && address != undefined;
   console.log({ mintLifecycle, accountReady, chain });
 
-  let provider: ethers.providers.Web3Provider | undefined;
-
   const TOKEN_B_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
-  const tokenB = new Token(1, TOKEN_B_ADDRESS, 18, 'WETH', 'Wrapped Ethereum');
+  const tokenB = new Token(ChainId.MAINNET, TOKEN_B_ADDRESS, 18, 'WETH', 'Wrapped Ethereum');
 
   const [quote, setQuote] = useState<SwapRoute | null>(null);
 
@@ -60,12 +58,12 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
     const fetchAndSetQuote = async () => {
       try {
           const provider = new ethers.providers.JsonRpcProvider('https://ethereum-rpc.publicnode.com');
-          const router = new AlphaRouter({ chainId: 1 as ChainId, provider }); // Use the correct ChainId here
+          const router = new AlphaRouter({ chainId: ChainId.MAINNET, provider }); // Use the correct ChainId here
           const amountInWei = ethers.utils.parseUnits('.00001', 'ether');
-          const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(1), amountInWei.toString()); // Use the correct ChainId
+          const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(ChainId.MAINNET), amountInWei.toString()); // Use the correct ChainId
           const swapOptions = {
               type: SwapType.UNIVERSAL_ROUTER,
-              recipient: '0xF3f0df2C7533ECad900F2A733eAB8A3Fe033250D', // Assuming 'address' is the user's address
+              recipient: address, // Assuming 'address' is the user's address
               slippageTolerance: new Percent(50, 10000), // 0.5% slippage tolerance
               deadlineOrPreviousBlockhash: Math.floor(Date.now() / 1000) + 60 * 20, // 20 minutes from now
           };
@@ -80,7 +78,7 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
     if (address) {
       fetchAndSetQuote();
     }
-  }, [address, provider]); // Re-fetch quote if address or provider changes
+  }, [address]); // Re-fetch quote if address or provider changes
   
   if (quote?.methodParameters){
     const commands = "0x08";
