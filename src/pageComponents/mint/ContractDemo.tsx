@@ -4,12 +4,12 @@ import { encodeFunctionData, formatEther } from 'viem';
 import { useAccount, useEstimateGas } from 'wagmi';
 import NextImage from '../../components/NextImage/NextImage';
 import { EXPECTED_CHAIN } from '../../constants';
-import { useSWAdopterContract } from '../../hooks/contracts';
 import { useCollectionMetadata } from '../../hooks/useCollectionMetadata';
 import { SpinnerIcon } from '../../components/icons/SpinnerIcon'
 import NotConnected from './NotConnected';
 import StartMintStep from './steps/StartMintStep';
 import SwitchNetwork from './SwitchNetwork';
+import { useUniversalRouterContract } from '../../hooks/contracts';
 
 if (typeof window !== "undefined") {
   // @ts-ignore
@@ -31,7 +31,7 @@ export default function MintContractDemo() {
 
   const { chain, address } = useAccount();
 
-  const contract = useSWAdopterContract();
+  const contract = useUniversalRouterContract();
   console.log('contract', contract);
   const onCorrectNetwork = chain?.id === EXPECTED_CHAIN.id;
 
