@@ -92,7 +92,7 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
     if (address) {
       fetchAndSetQuote();
     }
-  }, [address]); // Re-fetch quote if address or provider changes
+  }, [address, quote]); // Re-fetch quote if address or provider changes
 
 
   const simulation = useSimulateContract({
