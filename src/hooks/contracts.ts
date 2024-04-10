@@ -1,5 +1,5 @@
 import { Abi, Address, type Chain } from 'viem';
-import { base } from 'viem/chains';
+import { base, mainnet, baseSepolia } from 'viem/chains';
 import { useAccount } from 'wagmi';
 import UniversalRouterABI from '../contract/UniversalRouterABI'
 
@@ -63,5 +63,13 @@ export const useUniversalRouterContract = generateContractHook({
   [base.id]: {
     chain: base,
     address: '0x198EF79F1F515F02dFE9e3115eD9fC07183f02fC',
+  },
+  [mainnet.id]: {
+    chain: mainnet,
+    address: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD',
+  },
+  [baseSepolia.id]: {
+    chain: base,
+    address: '0x050E797f3625EC8785265e1d9BDd4799b97528A1',
   },
 });
