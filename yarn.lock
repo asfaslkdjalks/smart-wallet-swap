@@ -4984,6 +4984,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uniswap/sdk@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@uniswap/sdk@npm:3.0.3"
+  dependencies:
+    "@uniswap/v2-core": "npm:^1.0.0"
+    big.js: "npm:^5.2.2"
+    decimal.js-light: "npm:^2.5.0"
+    jsbi: "npm:^3.1.1"
+    tiny-invariant: "npm:^1.1.0"
+    tiny-warning: "npm:^1.0.3"
+    toformat: "npm:^2.0.0"
+  peerDependencies:
+    "@ethersproject/address": ^5.0.0-beta
+    "@ethersproject/contracts": ^5.0.0-beta
+    "@ethersproject/networks": ^5.0.0-beta
+    "@ethersproject/providers": ^5.0.0-beta
+    "@ethersproject/solidity": ^5.0.0-beta
+  checksum: 10c0/7e3aa5eae04cbb62c623904b18af48c8ccf34e0fd471a0f60aa51e6a499d75854c5b311bb01fb9edf8b4908a6db51a605f6b9241621f6eb7b7bf18c75d94d15b
+  languageName: node
+  linkType: hard
+
 "@uniswap/smart-order-router@npm:^3.26.1":
   version: 3.26.1
   resolution: "@uniswap/smart-order-router@npm:3.26.1"
@@ -5067,7 +5088,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uniswap/v2-core@npm:1.0.1, @uniswap/v2-core@npm:^1.0.1":
+"@uniswap/v2-core@npm:1.0.1, @uniswap/v2-core@npm:^1.0.0, @uniswap/v2-core@npm:^1.0.1":
   version: 1.0.1
   resolution: "@uniswap/v2-core@npm:1.0.1"
   checksum: 10c0/61fc8beb5f2875fc3fe6b00043c9491f0eb9839b824af44d53a303f3df1970c6c3e8a555b7a0150e0ad75b8e49ad6e3cf7d923109da31884536a7a844c24cda0
@@ -11157,10 +11178,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsbi@npm:^3.1.4":
+"jsbi@npm:^3.1.1, jsbi@npm:^3.1.4":
   version: 3.2.5
   resolution: "jsbi@npm:3.2.5"
   checksum: 10c0/74d4725f76f169d7848f3f2f88a8dd252d995421c1fefdaed8116daf4a1897c514ce8336ebb68303a2cf8d659e4fbc16791a1d232420b52cec3cf1f12ad760ed
+  languageName: node
+  linkType: hard
+
+"jsbi@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "jsbi@npm:4.3.0"
+  checksum: 10c0/1817ac1b50ea3f4438bcd84cadc9aee7a8657829f65b55ea6f151f401dbbd3babedbfdd3e4f481bd7b5472abb7823efa640fd7e5eee7c30cea6431f7a8b74696
   languageName: node
   linkType: hard
 
@@ -14808,8 +14836,11 @@ __metadata:
     "@typescript-eslint/type-utils": "npm:^5.54.1"
     "@typescript-eslint/types": "npm:^5.54.1"
     "@typescript-eslint/utils": "npm:^5.54.1"
+    "@uniswap/sdk": "npm:^3.0.3"
     "@uniswap/sdk-core": "npm:^4.2.0"
     "@uniswap/smart-order-router": "npm:^3.26.1"
+    "@uniswap/v2-sdk": "npm:^4.3.0"
+    "@uniswap/v3-sdk": "npm:^3.11.0"
     abitype: "npm:^0.10.3"
     assert: "npm:^2.1.0"
     autoprefixer: "npm:^10.4.16"
@@ -14834,11 +14865,13 @@ __metadata:
     eslint-plugin-react-perf: "npm:^3.3.1"
     eslint-plugin-relay: "npm:^1.8.3"
     eslint-plugin-simple-import-sort: "npm:^8.0.0"
+    ethers: "npm:^5.7.2"
     https-browserify: "npm:^1.0.0"
     identity-obj-proxy: "npm:^3.0.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
     jest-extended: "npm:^4.0.2"
+    jsbi: "npm:^4.3.0"
     net: "npm:^1.0.2"
     next: "npm:13.5.6"
     next-pwa: "npm:5.6.0"

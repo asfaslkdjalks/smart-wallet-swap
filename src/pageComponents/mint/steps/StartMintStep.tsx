@@ -49,8 +49,8 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
   const accountReady = onCorrectNetwork && address != undefined;
   console.log({ mintLifecycle, accountReady, chain });
 
-  const TOKEN_B_ADDRESS = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
-  const tokenB = new Token(ChainId.MAINNET, TOKEN_B_ADDRESS, 18, 'WETH', 'Wrapped Ethereum');
+  const TOKEN_B_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
+  const tokenB = new Token(ChainId.MAINNET, TOKEN_B_ADDRESS, 6, 'WETH', 'USDC');
 
   const [quote, setQuote] = useState<SwapRoute | null>(null);
 
