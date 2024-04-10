@@ -1,5 +1,5 @@
 import { createConfig, http } from 'wagmi';
-import { base, baseSepolia, localhost } from 'wagmi/chains';
+import { base, baseSepolia, localhost, mainnet } from 'wagmi/chains';
 import { getChainsForEnvironment } from './supportedChains';
 import { coinbaseWallet } from 'wagmi/connectors';
 
@@ -12,6 +12,7 @@ export function createWagmiConfig(projectId: string) {
     ssr: true,
     chains,
     transports: {
+      [mainnet.id]: http(),
       [baseSepolia.id]: http(),
       [base.id]: http(),
       [localhost.id]: http(),
