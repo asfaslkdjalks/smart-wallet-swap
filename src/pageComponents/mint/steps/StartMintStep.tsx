@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { TransactionExecutionError } from 'viem';
-import { Config, useConnect, useConnectors, useSwitchChain } from 'wagmi';
+import { Config, useConnect, useConnectors, useSwitchChain, use } from 'wagmi';
 import {
   useAccount,
   useSimulateContract,
@@ -59,8 +59,7 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
   useEffect(() => {
     const fetchAndSetQuote = async () => {
       try {
-        if (window.ethereum !== undefined) {
-          provider = new ethers.providers.Web3Provider(window.ethereum as ethers.providers.ExternalProvider);
+          const provider = new ethers.providers.JsonRpcProvider('https://ethereum-rpc.publicnode.com');
           const router = new AlphaRouter({ chainId: 1 as ChainId, provider }); // Use the correct ChainId here
           const amountInWei = ethers.utils.parseUnits('.00001', 'ether');
           const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(1), amountInWei.toString()); // Use the correct ChainId
@@ -73,7 +72,6 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
           const fetchedQuote = await router.route(amountIn, tokenB, TradeType.EXACT_INPUT, swapOptions as SwapOptions);
           console.log(fetchedQuote)
           setQuote(fetchedQuote); // Save the fetched quote to state
-        }
       } catch (error) {
           console.error('Failed to fetch quote:', error);
       }
