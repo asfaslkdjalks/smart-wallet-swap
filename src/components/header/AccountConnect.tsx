@@ -2,7 +2,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { AccountDropdown } from './AccountDropdown';
 import { AccountInfoPanel } from './AccountInfoPanel';
-import { baseSepolia } from 'viem/chains';
+import { base } from 'viem/chains';
 import { CustomConnectButton } from '../Button/CustomConnectButton';
 
 /**
@@ -21,7 +21,7 @@ function AccountConnect() {
           account &&
           chain &&
           (!authenticationStatus || authenticationStatus === 'authenticated') &&
-          chain?.id === baseSepolia.id;
+          chain?.id === base.id;
 
         console.log({ connected, ready, account, chain, authenticationStatus, chainId: chain?.id });
         return (
