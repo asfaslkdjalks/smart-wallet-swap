@@ -74,14 +74,15 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
           setQuote(fetchedQuote); // Save the fetched quote to state
           const commands = "0x08";
           if(quote?.methodParameters){
-          const inputs = [
+          const inputData = [
             // Convert quote details to contract function input format
             quote.methodParameters.to as `0x${string}`,
             quote.methodParameters.calldata as `0x${string}`,
             quote.methodParameters.value.toString() as `0x${string}`,
             // Add any other necessary parameters
           ];
-          setInputs(inputs)
+          const inputs = inputData.map(data => ethers.utils.hexlify(ethers.utils.toUtf8Bytes(data)))
+          setInputs(inputs as `0x${string}`[])
           setCommand(commands)
         }
       } catch (error) {
@@ -119,10 +120,10 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
   
     console.log('Mint Lifecycle:', mintLifecycle);
     console.log('Simulation fetched:', simulation?.isFetched);
-    console.log('Simulation request:', simulation?.data?.request);
+    console.log('Simulation request:', simulation?.data);
   
     if (mintLifecycle === 'simulate' && simulation?.isFetched) {
-      if (simulation?.data?.request) {
+      if (simulation?.data) {
         console.log('Simulation completed, ready to mint.');
         setMintLifecycle('readyToMint');
       } else {
