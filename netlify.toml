@@ -1,0 +1,15 @@
+[build]
+  command = "yarn" # or "yarn build" if you use Yarn
+  publish = ".next" # The directory set here should be the output of your build command. With Next.js, this is usually the ".next" directory or the "out" directory if you've run "next export", which is not standard for most Next.js apps on Netlify.
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  
+[functions]
+  directory = "netlify/functions" # The directory where your serverless functions are stored.
+
+# Here you can add environment variables:
+[build.environment]
+  NEXT_PUBLIC_GOOGLE_ANALYTICS_ID = "your-google-analytics-id"
+  NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID = "3d1f4cb433b2ab488130d2dec28d8513"
+  ENVIRONMENT = "production"
