@@ -1,8 +1,9 @@
 import { useCallback, useEffect } from 'react';
-import { useAccount, useChainId, useConnect, useSwitchChain, useNetwork } from 'wagmi';
+import { UseAccountEffectParameters, useAccount, useChainId, useConnect, useSwitchChain } from 'wagmi';
 import { base } from 'viem/chains';
 import Button from './Button';
 import { reloadIfNeeded } from '../../utils/reloadIfNeeded';
+import { config } from './config'
 
 export function CustomConnectButton({
   className,
@@ -15,12 +16,12 @@ export function CustomConnectButton({
 }) {
   const { connectAsync, connectors } = useConnect();
   const { switchChain } = useSwitchChain();
-  const { address } = useAccount();
-  const { chain } = useNetwork();
+  const { address, chain } = useAccount({config});
 
   useEffect(() => {
     console.log('>> switching chain', chain?.id !== base.id);
     console.log('>> address', address);
+    console.log('>> chain', chain)
 
     if (address && chain?.id !== base.id) {
       switchChain({ chainId: base.id });
