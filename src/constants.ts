@@ -1,3 +1,3 @@
-import { base } from 'viem/chains';
+import { base, mainnet } from 'viem/chains';
 
-export const EXPECTED_CHAIN = base;
+export const EXPECTED_CHAIN = mainnet;

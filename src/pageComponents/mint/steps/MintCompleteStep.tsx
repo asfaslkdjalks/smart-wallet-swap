@@ -6,10 +6,9 @@ import { reloadIfNeeded } from '../../../utils/reloadIfNeeded';
 
 type MintCompleteStepProps = {
   setMintStep: React.Dispatch<React.SetStateAction<MintSteps>>;
-  collectionName: string | null;
 };
 
-export default function MintCompleteStep({ setMintStep, collectionName }: MintCompleteStepProps) {
+export default function MintCompleteStep({ setMintStep }: MintCompleteStepProps) {
   const handleMintAnother = useCallback(() => {
     reloadIfNeeded();
   }, [setMintStep]);
@@ -22,7 +21,7 @@ export default function MintCompleteStep({ setMintStep, collectionName }: MintCo
       )}
     >
       <h2 className="mb-5 w-full text-center text-2xl font-semibold text-white">
-        Congrats! You minted {collectionName}
+        Congrats! You minted
       </h2>
 
       <div className="text-center text-6xl">🎉</div>
