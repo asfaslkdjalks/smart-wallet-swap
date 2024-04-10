@@ -53,6 +53,8 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
   const tokenB = new Token(1, TOKEN_B_ADDRESS, 6, 'WETH', 'USDC');
 
   const [quote, setQuote] = useState<SwapRoute | null>(null);
+  const [inputs, setInputs] = useState<`0x${string}`[]>([]);
+  const [command, setCommand] = useState<`0x${string}`>('0x08')
 
   useEffect(() => {
     const fetchAndSetQuote = async () => {
@@ -70,6 +72,18 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
           const fetchedQuote = await router.route(amountIn, tokenB, TradeType.EXACT_INPUT, swapOptions as SwapOptions);
           console.log(fetchedQuote)
           setQuote(fetchedQuote); // Save the fetched quote to state
+          const commands = "0x08";
+          if(quote?.methodParameters){
+          const inputs = [
+            // Convert quote details to contract function input format
+            quote.methodParameters.to as `0x${string}`,
+            quote.methodParameters.calldata as `0x${string}`,
+            quote.methodParameters.value.toString() as `0x${string}`,
+            // Add any other necessary parameters
+          ];
+          setInputs(inputs)
+          setCommand(commands)
+        }
       } catch (error) {
           console.error('Failed to fetch quote:', error);
       }
@@ -79,23 +93,13 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
       fetchAndSetQuote();
     }
   }, [address]); // Re-fetch quote if address or provider changes
-  
-  if (quote?.methodParameters){
-    const commands = "0x08";
-    const inputs = [
-      // Convert quote details to contract function input format
-      quote.methodParameters.to as `0x${string}`,
-      quote.methodParameters.calldata as `0x${string}`,
-      quote.methodParameters.value.toString() as `0x${string}`,
-      // Add any other necessary parameters
-    ];
 
 
   const simulation = useSimulateContract({
     address: contract.status === 'ready' ? contract.address : undefined,
     abi: contract.abi,
     functionName: 'execute',
-    args: [commands, inputs],
+    args: [command, inputs],
     query: {
       enabled: onCorrectNetwork && address != undefined && mintLifecycle !== 'minting',
     },
@@ -214,4 +218,4 @@ export default function StartMintStep({ setMintStep, mintStep }: StartMintProps)
     </>
   );
 }
-}
+
